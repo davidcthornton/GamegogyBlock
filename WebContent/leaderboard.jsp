@@ -112,7 +112,7 @@
 		<title>Vital Statistics</title>
 		
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-		<script type="text/javascript" src=<%=jsPath%>></script>
+		<script type="text/javascript" src="<%=jsPath%>"></script>
 		
 		<script type="text/javascript">		
 			jQueryAlias = $.noConflict();  //to avoid this webapp conflicting with others on the page
