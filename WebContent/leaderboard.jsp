@@ -102,7 +102,7 @@
 	Collections.sort(students);
 	Collections.reverse(students);
 
-	String jsPath = PlugInUtil.getUri("dt", "gamegogyleaderboard1.0", "js/highcharts.js");
+	String jsPath = PlugInUtil.getUri("dt", "leaderboardblock", "js/highcharts.js");
 %>
 
 <!DOCTYPE HTML>
@@ -158,7 +158,7 @@
 				
 				gamegogyLeaderboardChart = new Highcharts.Chart({
 					chart: {
-						renderTo: 'workingblockChartContainer',
+						renderTo: 'leaderboardBlockChartContainer',
 						type: 'bar'
 					},
 					legend: {  enabled: false  },  
@@ -210,7 +210,7 @@
 		
 	</head>
 	<body>
-		<div id="workingblockChartContainer"></div>			
+		<div id="leaderboardBlockChartContainer"></div>			
 	</body>
 </html>
 </bbData:context>
