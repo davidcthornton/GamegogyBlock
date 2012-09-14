@@ -164,18 +164,85 @@
 					legend: {  enabled: false  },  
 					title: {
 						text: 'Leaderboard'
-					},					
+					},						
 					xAxis: {						
 						categories: studentNames,
 						title: {
-							text: "Player"
+							text: null
 						}
 					},
 					yAxis: {
 						title: {
-							text: 'XP'
+							text: null
 						},
-						gridLineWidth: 0
+						gridLineWidth: 0,
+						labels: {
+							enabled: false
+						},
+						offset: 20,
+						plotBands: [
+							{ 
+								color: '#ffffff',
+								from: 0,
+								to: 100,
+								label: {
+									text: 'Level 1',
+									verticalAlign: "bottom",
+									style: {
+										color: '#666666'										
+									}
+								}
+							},
+							{ 
+								color: '#eeeeee',
+								from: 100,
+								to: 300,
+								label: {
+									text: 'Level 2',
+									verticalAlign: "bottom",
+									style: {
+										color: '#666666'										
+									}									
+								}
+							},
+							{ 
+								color: '#dddddd',
+								from: 300,
+								to: 600,
+								label: {
+									text: 'Level 3',
+									verticalAlign: "bottom",
+									style: {
+										color: '#666666'										
+									}									
+								}
+							},
+							{ 
+								color: '#cccccc',
+								from: 600,
+								to: 1000,
+								label: {
+									text: 'Level 4',
+									verticalAlign: "bottom",
+									style: {
+										color: '#666666'										
+									}									
+								}
+							},
+							{ 
+								color: '#bbbbbb',
+								from: 1000,
+								to: 1500,
+								label: {
+									text: 'Level 5',
+									verticalAlign: "bottom",
+									style: {
+										color: '#666666'										
+									}									
+								}
+							}							
+						]
+					
 					},
 					tooltip: {
 						formatter: function() {
