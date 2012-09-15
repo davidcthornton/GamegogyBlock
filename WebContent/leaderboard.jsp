@@ -127,7 +127,7 @@
    						Double score = (Double) students.get(x).score;
    						if (score == scoreToHighlight && !alreadyHighlighted) {
    							alreadyHighlighted = true;
-   							out.print("{ y: " + score.toString() + ", color: '#008844'}");
+   							out.print("{ dataLabels: { enabled: true, style: {fontWeight: 'bold'} }, y:  " + score.toString() + ", color: '#008844'}");   							
    						}
    						else {
    							out.print(score.toString());
@@ -156,14 +156,21 @@
   				%>
 		
 				
-				gamegogyLeaderboardChart = new Highcharts.Chart({
+  				gamegogyLeaderboardChart = new Highcharts.Chart({
 					chart: {
 						renderTo: 'leaderboardBlockChartContainer',
 						type: 'bar'
 					},
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            borderColor: 'gray',
+                            shadow: false
+                        }
+                    },
 					legend: {  enabled: false  },  
 					title: {
-						text: 'Leaderboard'
+						text: null
 					},						
 					xAxis: {						
 						categories: studentNames,
@@ -210,7 +217,7 @@
 								from: 300,
 								to: 600,
 								label: {
-									text: 'Level 3',
+									text: 'Level 3',               
 									verticalAlign: "bottom",
 									style: {
 										color: '#666666'										
@@ -222,7 +229,7 @@
 								from: 600,
 								to: 1000,
 								label: {
-									text: 'Level 4',
+									text: 'Level 4',               
 									verticalAlign: "bottom",
 									style: {
 										color: '#666666'										
@@ -234,7 +241,7 @@
 								from: 1000,
 								to: 1500,
 								label: {
-									text: 'Level 5',
+									text: 'Level 5',               
 									verticalAlign: "bottom",
 									style: {
 										color: '#666666'										
@@ -253,16 +260,10 @@
 							else if (this.y < 600) { level = 3; }
 							else if (this.y < 1000) { level = 4; }
 							else { level = 5; }
-							return "level: " + level;
+							return this.y;
 						}
 					},
-					plotOptions: {
-						bar: {
-							dataLabels: {
-								enabled: true
-							}
-						}
-					},					
+					
 					credits: {
 						enabled: false
 					},
