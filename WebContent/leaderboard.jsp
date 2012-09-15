@@ -127,7 +127,7 @@
    						Double score = (Double) students.get(x).score;
    						if (score == scoreToHighlight && !alreadyHighlighted) {
    							alreadyHighlighted = true;
-   							out.print("{dataLabels: { enabled: true, style: {fontWeight: 'bold'} }, y:  " + score.toString() + ", color: '#44aa22'}");   							
+   							out.print("{dataLabels: { enabled: true, style: {fontWeight: 'bold'} }, y:  " + score.toString() + ", color: '#44aa22'}");
    						}
    						else {
    							out.print(score.toString());
@@ -193,7 +193,7 @@
 								from: 0,
 								to: 100,
 								label: {
-									text: 'Level 1',
+									text: '',
 									verticalAlign: "bottom",
 									style: {
 										color: '#666666'										
