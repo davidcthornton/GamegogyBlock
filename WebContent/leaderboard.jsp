@@ -103,9 +103,10 @@
 	Collections.reverse(students);
 
 	String jsPath = PlugInUtil.getUri("dt", "leaderboardblock11", "js/highcharts.js");
+	String jqueryPath = PlugInUtil.getUri("dt", "leaderboardblock11", "js/jquery.js");
 %>
 		
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+		<script type="text/javascript" src="<%=jqueryPath%>"></script>
 		<script type="text/javascript" src="<%=jsPath%>"></script>
 		
 		<script type="text/javascript">                                               
@@ -266,7 +267,7 @@
 				}); //end of chart
 	
 			});  //end of function
-			$.noConflict();  //to avoid this webapp conflicting with others on the page
+			//$.noConflict();  //to avoid this webapp conflicting with others on the page
 		</script>      		
 	</head>
 		<div id="leaderboardBlockChartContainer"></div>			
