@@ -1,5 +1,4 @@
-<!-- 
-	quick test
+<!--
 	Gamegogy Leaderboard 1.0
     Copyright (C) 2012  David Thornton
 
@@ -103,22 +102,14 @@
 	Collections.sort(students);
 	Collections.reverse(students);
 
-	String jsPath = PlugInUtil.getUri("dt", "leaderboardblock", "js/highcharts.js");
+	String jsPath = PlugInUtil.getUri("dt", "leaderboardblock11", "js/highcharts.js");
 %>
-
-<!DOCTYPE HTML>
-	<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Vital Statistics</title>
 		
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 		<script type="text/javascript" src="<%=jsPath%>"></script>
 		
-		<script type="text/javascript">		
-			jQueryAlias = $.noConflict();  //to avoid this webapp conflicting with others on the page
-		                                                   
-			jQueryAlias(document).ready(function() {			
+		<script type="text/javascript">                                               
+			jQuery(document).ready(function() {			
 				var gamegogyLeaderboardChart;			
 				
 				var seriesValues = [
@@ -274,12 +265,11 @@
 					}]
 				}); //end of chart
 	
-			});  //end of function	
-		</script>      
-		
+			});  //end of function
+			$.noConflict();  //to avoid this webapp conflicting with others on the page
+		</script>      		
 	</head>
-	<body>
 		<div id="leaderboardBlockChartContainer"></div>			
-	</body>
-</html>
+
+
 </bbData:context>
