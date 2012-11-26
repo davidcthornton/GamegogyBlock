@@ -156,6 +156,8 @@
 					},
                     plotOptions: {
                         series: {
+							pointPadding: 0,
+							groupPadding: 0.1,
                             borderWidth: 0,
                             borderColor: 'gray',
                             shadow: false
