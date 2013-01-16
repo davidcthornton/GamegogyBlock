@@ -111,13 +111,13 @@
 		<script type="text/javascript">		
 			// this is a rather kludgy fix for a bug introduced by Blackboard 9.1 SP 10.  It ensures that javascript files are loaded in the correct order, instead of haphazardly.
 			function waitForDependencies() {
-			    console.log("main page: checking for dependencies");
+			    //console.log("main page: checking for dependencies");			    
 			    if (typeof jQueryDefined === 'undefined' || typeof highChartsDefined === 'undefined') {
-			        console.log("main page: dependencies not loaded yet, waiting");
+			        //console.log("main page: dependencies not loaded yet, waiting");			        
 			        setTimeout(waitForDependencies, 1);
 			    }
 			    else {
-			        console.log("dependencies loaded, continuing merrily");
+			        //console.log("dependencies loaded, continuing merrily");			        
 			        // insert main body of code here
 			        dave(document).ready(function() {
 			
@@ -150,8 +150,7 @@
 		  						if (x < students.size() -1) { out.print(","); }
 		  						else { out.print("];"); }
 		  					}
-	  					}
-	  				
+	  					}	  				
 	  					else {
 	  						// this is a remote kludge
 	  						out.print("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50];");
@@ -280,10 +279,7 @@
 				}); // end of ready function
 			    }  //end of else (main body)
 			}
-			waitForDependencies();
-			
-		
-		
+			waitForDependencies();  // end of rather kludgy blocking solution
 									  		
 		</script>      	
 		
