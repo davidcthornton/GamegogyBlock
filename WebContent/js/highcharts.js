@@ -1,12 +1,12 @@
 // this is a rather kludgy fix for a bug introduced by Blackboard 9.1 SP 10.  It ensures that javascript files are loaded in the correct order, instead of haphazardly.
 function waitForDependencies() {
-    console.log("checking for dependencies");
+    //console.log("checking for dependencies");
     if (typeof jQueryDefined === 'undefined') {
-        console.log("highcharts: dependency not loaded yet, waiting");
+        //console.log("highcharts: dependency not loaded yet, waiting");
         setTimeout(waitForDependencies, 1);
     }
     else {
-        console.log("highcharts: dependency loaded, continuing merrily");
+        //console.log("highcharts: dependency loaded, continuing merrily");
         // insert main body of code here
         /*
    	 Highcharts JS v2.2.5 (2012-06-08)
