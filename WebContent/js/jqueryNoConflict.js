@@ -4,4 +4,3 @@
 //this line is THE FIX for the prototype/jQuery conflict
 // why must it be here?
 dave = jQuery.noConflict();
-jQueryDefined = true;
