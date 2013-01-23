@@ -1,5 +1,5 @@
 <!--
-test
+
 	Gamegogy Leaderboard 1.1
     Copyright (C) 2013  David Thornton
 
@@ -110,162 +110,180 @@ test
 	<script type="text/javascript" src="<%=jQueryPath%>"></script>
 	<script type="text/javascript" src="<%=highChartsPath%>"></script>
 	
-	<script type="text/javascript">
-		function readyToGo() {					
-			var gamegogyLeaderboardChart;			
+		<script type="text/javascript">		
+			// this is a rather kludgy fix for a bug introduced by Blackboard 9.1 SP 10.  It ensures that javascript files are loaded in the correct order, instead of haphazardly.
+			function waitForDependencies() {
+			    //console.log("main page: checking for dependencies");			    
+			    if (typeof jQueryDefined === 'undefined' || typeof highChartsDefined === 'undefined') {
+			        //console.log("main page: dependencies not loaded yet, waiting");			        
+			        setTimeout(waitForDependencies, 1);
+			    }
+			    else {
+			        //console.log("dependencies loaded, continuing merrily");			        
+			        // insert main body of code here
+			        dave(document).ready(function() {
 			
-			var seriesValues = [
-			<%	
-				boolean alreadyHighlighted = false;
-				for (int x = 0; x < students.size(); x++){
-					Double score = (Double) students.get(x).score;
-					if (score == scoreToHighlight && !alreadyHighlighted) {
-						alreadyHighlighted = true;
-						out.print("{dataLabels: { enabled: true, style: {fontWeight: 'bold'} }, y:  " + score.toString() + ", color: '#44aa22'}");
-					}
-					else {
-						out.print(score.toString());
-					}
-					if (x < students.size() -1) { out.print(","); }
-					else { out.print("];"); }
-				}
-			%>
+					var gamegogyLeaderboardChart;			
+					
+					var seriesValues = [
+	   				<%	
+	   					boolean alreadyHighlighted = false;
+	   					for (int x = 0; x < students.size(); x++){
+	   						Double score = (Double) students.get(x).score;
+	   						if (score == scoreToHighlight && !alreadyHighlighted) {
+	   							alreadyHighlighted = true;
+	   							out.print("{dataLabels: { enabled: true, style: {fontWeight: 'bold'} }, y:  " + score.toString() + ", color: '#44aa22'}");
+	   						}
+	   						else {
+	   							out.print(score.toString());
+	   						}
+	   						if (x < students.size() -1) { out.print(","); }
+	   						else { out.print("];"); }
+	   					}
+	   				%>
+	   				
+	   				var studentNames = [
+	  				<%	
+	  					if (isUserAnInstructor) {
+	  						for (int x = 0; x < students.size(); x++){
+		  						String firstName = (String) students.get(x).firstName;
+		  						String lastName = (String) students.get(x).lastName;
+		  						out.print('"' + firstName.substring(0, 1) + ' ' + lastName + '"');   						
+		  						if (x < students.size() -1) { out.print(","); }
+		  						else { out.print("];"); }
+		  					}
+	  					}	  				
+	  					else {
+	  						// this is a remote kludge
+	  						out.print("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50];");
+	  					}
+	  				%>
 			
-			var studentNames = [
-			<%	
-				if (isUserAnInstructor) {
-					for (int x = 0; x < students.size(); x++){
-						String firstName = (String) students.get(x).firstName;
-						String lastName = (String) students.get(x).lastName;
-						out.print('"' + firstName.substring(0, 1) + ' ' + lastName + '"');   						
-						if (x < students.size() -1) { out.print(","); }
-						else { out.print("];"); }
-					}
-				}	  				
-				else {
-					// this is a kludge
-					out.print("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50];");
-				}
-			%>
-		
-			gamegogyLeaderboardChart = new Highcharts.Chart({
-				chart: {
-					renderTo: 'leaderboardBlockChartContainer',
-					type: 'bar'
-				},
-				plotOptions: {
-					series: {
-						pointPadding: 0,
-						groupPadding: 0.1,
-						borderWidth: 0,
-						borderColor: 'gray',
-						shadow: false
-					}
-				},
-				legend: {  enabled: false  },  
-				title: {
-					text: null
-				},						
-				xAxis: {						
-					categories: studentNames,
-					title: {
-						text: null
-					}
-				},
-				yAxis: {
-					title: {
-						text: null
-					},
-					gridLineWidth: 0,
-					labels: {
-						enabled: false
-					},
-					offset: 20,
-					plotBands: [
-						{ 
-							color: '#ffffff',
-							from: 0,
-							to: 100,
-							label: {
-								text: '',
-								verticalAlign: "bottom",
-								style: {
-									color: '#666666'										
-								}
+					
+	  				gamegogyLeaderboardChart = new Highcharts.Chart({
+						chart: {
+							renderTo: 'leaderboardBlockChartContainer',
+							type: 'bar'
+						},
+	                    plotOptions: {
+	                        series: {
+								pointPadding: 0,
+								groupPadding: 0.1,
+	                            borderWidth: 0,
+	                            borderColor: 'gray',
+	                            shadow: false
+	                        }
+	                    },
+						legend: {  enabled: false  },  
+						title: {
+							text: null
+						},						
+						xAxis: {						
+							categories: studentNames,
+							title: {
+								text: null
 							}
 						},
-						{ 
-							color: '#eeeeee',
-							from: 100,
-							to: 300,
-							label: {
-								text: 'Level 2',
-								verticalAlign: "bottom",
-								style: {
-									color: '#666666'										
-								}									
+						yAxis: {
+							title: {
+								text: null
+							},
+							gridLineWidth: 0,
+							labels: {
+								enabled: false
+							},
+							offset: 20,
+							plotBands: [
+								{ 
+									color: '#ffffff',
+									from: 0,
+									to: 100,
+									label: {
+										text: '',
+										verticalAlign: "bottom",
+										style: {
+											color: '#666666'										
+										}
+									}
+								},
+								{ 
+									color: '#eeeeee',
+									from: 100,
+									to: 300,
+									label: {
+										text: 'Level 2',
+										verticalAlign: "bottom",
+										style: {
+											color: '#666666'										
+										}									
+									}
+								},
+								{ 
+									color: '#dddddd',
+									from: 300,
+									to: 600,
+									label: {
+										text: 'Level 3',               
+										verticalAlign: "bottom",
+										style: {
+											color: '#666666'										
+										}									
+									}
+								},
+								{ 
+									color: '#cccccc',
+									from: 600,
+									to: 1000,
+									label: {
+										text: 'Level 4',               
+										verticalAlign: "bottom",
+										style: {
+											color: '#666666'										
+										}									
+									}
+								},
+								{ 
+									color: '#bbbbbb',
+									from: 1000,
+									to: 1500,
+									label: {
+										text: 'Level 5',               
+										verticalAlign: "bottom",
+										style: {
+											color: '#666666'										
+										}									
+									}
+								}							
+							]
+						
+						},
+						tooltip: {
+							formatter: function() {
+								var level = 1;
+								// literals here!
+								if (this.y < 100) { level = 1; }
+								else if (this.y < 300) { level = 2; }
+								else if (this.y < 600) { level = 3; }
+								else if (this.y < 1000) { level = 4; }
+								else { level = 5; }
+								return this.y;
 							}
 						},
-						{ 
-							color: '#dddddd',
-							from: 300,
-							to: 600,
-							label: {
-								text: 'Level 3',               
-								verticalAlign: "bottom",
-								style: {
-									color: '#666666'										
-								}									
-							}
+						
+						credits: {
+							enabled: false
 						},
-						{ 
-							color: '#cccccc',
-							from: 600,
-							to: 1000,
-							label: {
-								text: 'Level 4',               
-								verticalAlign: "bottom",
-								style: {
-									color: '#666666'										
-								}									
-							}
-						},
-						{ 
-							color: '#bbbbbb',
-							from: 1000,
-							to: 1500,
-							label: {
-								text: 'Level 5',               
-								verticalAlign: "bottom",
-								style: {
-									color: '#666666'										
-								}									
-							}
-						}							
-					] // end of plotbands
-				},
-				tooltip: {
-					formatter: function() {
-						var level = 1;
-						// literals here!
-						if (this.y < 100) { level = 1; }
-						else if (this.y < 300) { level = 2; }
-						else if (this.y < 600) { level = 3; }
-						else if (this.y < 1000) { level = 4; }
-						else { level = 5; }
-						return this.y;
-					}
-				},
-				credits: {
-					enabled: false
-				},
-				series: [{
-					name: 'XP',
-					data: seriesValues
-				}]
-			}); //end of chart
-		} // end of ready function			 				  		
-	</script>      	
+						series: [{
+							name: 'XP',
+							data: seriesValues
+						}]
+					}); //end of chart
+				}); // end of ready function
+			    }  //end of else (main body)
+			}
+			waitForDependencies();  // end of rather kludgy blocking solution
+									  		
+		</script>	
 	<div id="leaderboardBlockChartContainer"></div>	
 	
 </bbNG:includedPage>

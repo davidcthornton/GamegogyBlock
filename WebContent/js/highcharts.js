@@ -1,4 +1,14 @@
-/*
+// this is a rather kludgy fix for a bug introduced by Blackboard 9.1 SP 10.  It ensures that javascript files are loaded in the correct order, instead of haphazardly.
+function waitForDependencies() {
+    console.log("checking for dependencies");
+    if (typeof jQueryDefined === 'undefined') {
+        console.log("highcharts: dependency not loaded yet, waiting");
+        setTimeout(waitForDependencies, 1);
+    }
+    else {
+        console.log("highcharts: dependency loaded, continuing merrily");
+        // insert main body of code here
+        /*
    	 Highcharts JS v2.2.5 (2012-06-08)
 
    	 (c) 2009-2011 Torstein H?nsi
@@ -237,5 +247,9 @@
    	0){if(r=C.pop(),B=r.i,r=r.y,s>r&&w[B+1]!==null||s<r&&w[B-1]!==null)r=s}else r=s;s=d.justify?k[0]+(x?-1:1)*(l+j):this.getX(B===0||B===w.length-1?s:r,x);g.attr({visibility:t,align:h[6]})[g.moved?"animate":"attr"]({x:s+d.x+({left:e,right:-e}[h[6]]||0),y:r+d.y});g.moved=!0;if(p&&f)g=b.connector,h=i?["M",s+(h[6]==="left"?5:-5),r,"C",s,r,2*h[2]-h[4],2*h[3]-h[5],h[2],h[3],"L",h[4],h[5]]:["M",s+(h[6]==="left"?5:-5),r,"L",h[2],h[3],"L",h[4],h[5]],g?(g.animate({d:h}),g.attr("visibility",t)):b.connector=g=this.chart.renderer.path(h).attr({"stroke-width":f,
    	stroke:d.connectorColor||b.color||"#606060",visibility:t,zIndex:3}).translate(c.plotLeft,c.plotTop).add()}}}},drawTracker:ha.prototype.drawTracker,drawLegendSymbol:G.prototype.drawLegendSymbol,getSymbol:function(){}};T=ca(R,T);Y.pie=T;u(Highcharts,{Axis:ob,CanVGRenderer:fb,Chart:rb,Color:pa,Legend:qb,Point:Wa,Tick:Sa,Tooltip:pb,Renderer:Ta,Series:R,SVGRenderer:qa,VMLRenderer:ka,dateFormat:db,pathAnim:Ua,getOptions:function(){return V},hasBidiBug:Rb,numberFormat:Xa,seriesTypes:Y,setOptions:function(a){V=
    	C(V,a);Bb();return V},addEvent:I,removeEvent:P,createElement:S,discardElement:Qa,css:F,each:n,extend:u,map:Ea,merge:C,pick:o,splat:na,extendClass:ca,pInt:w,product:"Highcharts",version:"2.2.5"})})();
-   
+   	highChartsDefined = true;   	
+    } //end of else (main body)
+}
+waitForDependencies();
+
 
