@@ -25,7 +25,7 @@
 				  <view>leaderboard.jsp</view>		
 				</jsp>		
 			</module-type>		
-			<module type="leaderboardblock11" isadmin="true" isavailabletocourse="true" useraddable="true" isdeletable="true" isdetachable="true" editable="true" settingsUrl="leaderboard_config.jsp" title="Gamegogy Leaderboard Block 1.1">		
+			<module type="leaderboardblock11" isadmin="true" isavailabletocourse="true" useraddable="true" isdeletable="true" isdetachable="true" Editable="true" settingsUrl="../leaderboard_config.jsp" title="Gamegogy Leaderboard Block 1.1">		
 				<description>This module displays students' total points and their rank compared to their classmates.  An instructor will see the students' names displayed, while students will only see an anonymized rank.</description>		
 				<ExtraInfo />		
 				<module-groups>		
