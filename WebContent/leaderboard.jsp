@@ -28,7 +28,7 @@
 <%@page import="blackboard.platform.plugin.PlugInUtil"%>	<!-- for utilities -->
 <%@ taglib uri="/bbData" prefix="bbData"%> 					<!-- for tags -->
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
-<bbNG:includedPage ctxId="ctx" onLoad="readyToGo()">
+<bbNG:includedPage ctxId="ctx">
 
 	<%
 		//create a student class to hold their grades and other information
