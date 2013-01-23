@@ -4,8 +4,8 @@
 	<plugin>
 		<name value= "Gamegogy Leaderboard Block 1.1"/>
 		<handle value= "leaderboardblock11"/>
-		<description value= " Here is a description."/>
-		<version value= "1.0.1"/>
+		<description value= "This module displays students' total points and their rank compared to their classmates.  An instructor will see the students' names displayed, while students will only see an anonymized rank."/>
+		<version value= "1.1"/>
 		<requires>
 			<bbversion value="9.0.0"/>
 		</requires>
@@ -13,7 +13,7 @@
 			<id value="dt"/>
 			<name value="David Thornton"/>
 			<url value="http://www.jsu.edu/mcis/people/thornton.html" />
-			<description value="This is part of a research project." />
+			<description value="This module displays students' total points and their rank compared to their classmates.  An instructor will see the students' names displayed, while students will only see an anonymized rank." />
 		</vendor>
 		<http-actions>
 		</http-actions>
@@ -25,8 +25,8 @@
 				  <view>leaderboard.jsp</view>		
 				</jsp>		
 			</module-type>		
-			<module type="leaderboardblock11" isadmin="true" isavailabletocourse="true" useraddable="true" isdeletable="true" isdetachable="true" title="Gamegogy Leaderboard Block 1.1">		
-				<description>Description here.</description>		
+			<module type="leaderboardblock11" isadmin="true" isavailabletocourse="true" useraddable="true" isdeletable="true" isdetachable="true" editable="true" settingsUrl="leaderboard_config.jsp" title="Gamegogy Leaderboard Block 1.1">		
+				<description>This module displays students' total points and their rank compared to their classmates.  An instructor will see the students' names displayed, while students will only see an anonymized rank.</description>		
 				<ExtraInfo />		
 				<module-groups>		
 					<module-group id="Everyone"/>		
