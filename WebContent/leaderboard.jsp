@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<!-- hello -->
 
 <%@page import="blackboard.base.*"%>
 <%@page import="blackboard.data.course.*"%> 				<!-- for reading data -->
