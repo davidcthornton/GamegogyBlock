@@ -39,7 +39,7 @@
 		    public Student(String firstName, String lastName, Double score) {
 		        this.score = score;
 		        this.firstName = firstName;
-		        this.lastName = lastName;
+		        this.lastName = lastName;		// last name
 		    }
 		    
 		    public int compareTo(Student s) {
