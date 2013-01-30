@@ -12,9 +12,5 @@
 	<classpathentry kind="lib" path="C:/Users/Sirenian/Dropbox/School/CS499 (Thornton)/External JARs/bb-platform.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Sirenian/Dropbox/School/CS499 (Thornton)/External JARs/bb-taglibs.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Sirenian/Dropbox/School/CS499 (Thornton)/External JARs/servlet-api.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Dropbox/bb-cms-admin(1).jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Dropbox/bb-platform(1).jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Dropbox/bb-taglibs(1).jar"/>
-	<classpathentry kind="lib" path="C:/Users/Daniel/Dropbox/servlet-api(1).jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
