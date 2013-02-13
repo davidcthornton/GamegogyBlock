@@ -63,6 +63,10 @@ function resetForm() {
 	for(var i = 1; i <= 10; i++) {
 		document.getElementsByName("Level_" + i + "_Points")[0].value = 
 		document.getElementsByName("Level_" + i + "_Points")[0].defaultValue;
+		if(document.getElementsByName("Level_" + i + "_Points")[0].value != "") {
+			document.getElementById("Level_" + i).style.visibility == "visible";
+			if (i < 10) {document.getElementById("Level_" + (i+1)).style.visibility == "visible";}
+		}
 	}
 	checkForm();
 }
