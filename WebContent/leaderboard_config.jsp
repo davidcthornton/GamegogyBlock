@@ -35,7 +35,7 @@
 				<bbNG:dataElement label="Plotbands Color">
 					<bbNG:colorPicker name="color" />
 				</bbNG:dataElement>
-				<form name="plotband_config_form" id="plotband_config_form">
+				<form name="plotband_config_form" id="plotband_config_form" onkeydown="checkForm()">
 					<table>
 						<tr id="Level_1">
 							<td>Level 1 -</td>
@@ -92,6 +92,7 @@
 						for(var i = 4; i <= 10; i++) {
 							if(document.getElementById("Level_" + i).style.visibility == "hidden") {
 								document.getElementById("Level_" + i).style.visibility = "visible";
+								checkForm();
 								return;
 							}
 						}
@@ -101,10 +102,23 @@
 						for(var i = 10; i >= 4; i--) {
 							if(document.getElementById("Level_" + i).style.visibility == "visible") {
 								document.getElementById("Level_" + i).style.visibility = "hidden";
+								checkForm();
 								return;
 							}
 						}
 					}
+					
+					function checkForm() {
+						for(var i = 2; i <= 10; i++) {
+							if(document.getElementsByName("Level_" + (i-1) + "_Points")[0].value == "" 
+							|| document.getElementsByName("Level_" + (i-1) + "_Points")[0].disabled) {
+								document.getElementsByName("Level_" + i + "_Points")[0].disabled = true;
+							} else {
+								document.getElementsByName("Level_" + i + "_Points")[0].disabled = false;
+							}
+						}
+					}
+					checkForm();
 				</script>
 			</bbNG:step>
 			<bbNG:stepSubmit />
