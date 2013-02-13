@@ -46,25 +46,39 @@
 				<bbNG:colorPicker name="color" initialColor="<%= color_value %>"/>
 			</bbNG:dataElement>
 			
-			<!-- Plotbands Configuration Form -->
-			<form name="plotband_config_form" id="plotband_config_form">
-				<table>
-					<!-- Fill up table with 10 levels.  Includes label & input field -->
-					<% for(int i = 1; i <= 10; i++) { %>
-						<tr id="Level_<%= i %>">
-							<td>Level <%= i %> -</td>
-							<td><input type="text" name="Level_<%= i %>_Points" size="3" value="<%=level_values[i-1]%>" onkeyup="checkForm()"/></td>
-						</tr>
-					<% } %>
-				</table>
-				<input id="popLevel_button" type="button" value="-" onclick="subtractLevel()" />
-				<input id="pushLevel_button" type="button" value="+" onclick="addLevel()" />
-				<input type="button" value="Reset" onclick="resetForm()" />
-				<input type="button" value="Clear" onclick="clearForm()" />
-			</form>
+			<%	
+				// get the current user's information
+				User sessionUser = ctx.getUser();
+				Id courseID = ctx.getCourseId();		
+				String sessionUserRole = ctx.getCourseMembership().getRoleAsString();	
+				String sessionUserID = sessionUser.getId().toString();
+				boolean isUserAnInstructor = false;
+				if (sessionUserRole.trim().toLowerCase().equals("instructor")) {
+					isUserAnInstructor = true;
+				}	
+			%>
 			
-			<!-- Javascript Form Logic //-->
-			<script type="text/javascript" src="<%= jsConfigFormPath %>"></script>
+			<!-- Plotbands Configuration Form -->
+			<% if (isUserAnInstructor) { %>
+				<form name="plotband_config_form" id="plotband_config_form">
+					<table>
+						<!-- Fill up table with 10 levels.  Includes label & input field -->
+						<% for(int i = 1; i <= 10; i++) { %>
+							<tr id="Level_<%= i %>">
+								<td>Level <%= i %> -</td>
+								<td><input type="text" name="Level_<%= i %>_Points" size="3" value="<%=level_values[i-1]%>" onkeyup="checkForm()"/></td>
+							</tr>
+						<% } %>
+					</table>
+					<input id="popLevel_button" type="button" value="-" onclick="subtractLevel()" />
+					<input id="pushLevel_button" type="button" value="+" onclick="addLevel()" />
+					<input type="button" value="Reset" onclick="resetForm()" />
+					<input type="button" value="Clear" onclick="clearForm()" />
+				</form>
+				
+				<!-- Javascript Form Logic //-->
+				<script type="text/javascript" src="<%= jsConfigFormPath %>"></script>
+			<% } %>
 			
 		</bbNG:step>
 		<bbNG:stepSubmit />
