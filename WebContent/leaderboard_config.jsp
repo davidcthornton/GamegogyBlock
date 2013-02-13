@@ -37,21 +37,20 @@
 </bbNG:pageHeader>
 
 <!-- Body Content: Plotbands & Color Picker -->
-<bbNG:form action="leaderboard_save.jsp" method="post">
+<bbNG:form action="leaderboard_save.jsp" method="post" name="plotband_config_form" id="plotband_config_form" onSubmit="return validateForm()">
 	<bbNG:dataCollection>
-		<bbNG:step title="Plotbands Configuration">
-		
-			<!-- Color Picker -->
-			<bbNG:dataElement label="Plotbands Color">
+	
+		<!-- Color Picker -->
+		<bbNG:step title="Plotbands Color">
+			<bbNG:dataElement>
+				<bbNG:elementInstructions text="Color Picker instructions here" />
 				<bbNG:colorPicker name="color" initialColor="<%= color_value %>"/>
 			</bbNG:dataElement>
-			
+		</bbNG:step>
+		
 			<%	
 				// get the current user's information
-				User sessionUser = ctx.getUser();
-				Id courseID = ctx.getCourseId();		
-				String sessionUserRole = ctx.getCourseMembership().getRoleAsString();	
-				String sessionUserID = sessionUser.getId().toString();
+				String sessionUserRole = ctx.getCourseMembership().getRoleAsString();
 				boolean isUserAnInstructor = false;
 				if (sessionUserRole.trim().toLowerCase().equals("instructor")) {
 					isUserAnInstructor = true;
@@ -60,27 +59,28 @@
 			
 			<!-- Plotbands Configuration Form -->
 			<% if (isUserAnInstructor) { %>
-				<form name="plotband_config_form" id="plotband_config_form">
-					<table>
-						<!-- Fill up table with 10 levels.  Includes label & input field -->
-						<% for(int i = 1; i <= 10; i++) { %>
-							<tr id="Level_<%= i %>">
-								<td>Level <%= i %> -</td>
-								<td><input type="text" name="Level_<%= i %>_Points" size="3" value="<%=level_values[i-1]%>" onkeyup="checkForm()"/></td>
-							</tr>
-						<% } %>
-					</table>
-					<input id="popLevel_button" type="button" value="-" onclick="subtractLevel()" />
-					<input id="pushLevel_button" type="button" value="+" onclick="addLevel()" />
-					<input type="button" value="Reset" onclick="resetForm()" />
-					<input type="button" value="Clear" onclick="clearForm()" />
-				</form>
-				
-				<!-- Javascript Form Logic //-->
-				<script type="text/javascript" src="<%= jsConfigFormPath %>"></script>
+				<bbNG:step title="Plotbands Points">
+					<bbNG:dataElement>
+						<bbNG:elementInstructions text="Plotbands instructions here" />
+						<table>
+							<!-- Fill up table with 10 levels.  Includes label & input field -->
+							<% for(int i = 1; i <= 10; i++) { %>
+								<tr id="Level_<%= i %>">
+									<td>Level <%= i %> -</td>
+									<td><input type="text" name="Level_<%= i %>_Points" size="3" value="<%=level_values[i-1]%>" onkeyup="checkForm()"/></td>
+								</tr>
+							<% } %>
+						</table>
+						<input id="popLevel_button" type="button" value="-" onclick="subtractLevel()" />
+						<input id="pushLevel_button" type="button" value="+" onclick="addLevel()" />
+						<input type="button" value="Reset" onclick="resetForm()" />
+						<input type="button" value="Clear" onclick="clearForm()" />
+						
+						<!-- Javascript Form Logic //-->
+						<script type="text/javascript" src="<%= jsConfigFormPath %>"></script>
+					</bbNG:dataElement>
+				</bbNG:step>
 			<% } %>
-			
-		</bbNG:step>
 		<bbNG:stepSubmit />
 	</bbNG:dataCollection>
 </bbNG:form>
