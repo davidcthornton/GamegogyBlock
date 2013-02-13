@@ -1,15 +1,30 @@
+<%@page import="blackboard.base.*"%>
+<%@page import="blackboard.data.course.*"%> 				<!-- for reading data -->
+<%@page import="blackboard.data.user.*"%> 					<!-- for reading data -->
+<%@page import="blackboard.persist.*"%> 					<!-- for writing data -->
+<%@page import="blackboard.persist.course.*"%> 				<!-- for writing data -->
+<%@page import="blackboard.platform.gradebook2.*"%>
+<%@page import="blackboard.platform.gradebook2.impl.*"%>
+<%@page import="java.util.*"%> 								<!-- for utilities -->
+<%@page import="blackboard.platform.plugin.PlugInUtil"%>	<!-- for utilities -->
+<%@ taglib uri="/bbData" prefix="bbData"%> 					<!-- for tags -->
+<%@ taglib uri="/bbNG" prefix="bbNG"%>
+<%@page import="com.spvsoftwareproducts.blackboard.utils.B2Context"%>
 <%
-
-// Process leaderboard config here.
- 
-String levels, color;
-
-levels = request.getParameter("plotbands_config");
-color  = request.getParameter("color");
 
 // Persistence logic here...
 
-
+if (request.getMethod().equalsIgnoreCase("POST")) {
+	// Process leaderboard config here.
+	B2Context b2Context = new B2Context(request);
+	b2Context.setSaveEmptyValues(false);
+	
+	for(int i = 0; i < 10; i++) {
+		b2Context.setSetting(false, true, "Level_" + (i+1) + "_Points", request.getParameter("Level_" + (i+1) + "_Points"));
+	}
+	
+	b2Context.persistSettings(false, true);
+}
 
 
 
@@ -20,16 +35,3 @@ String s = "<script>history.go(-2);</script>";
 %>
 
 <%=s %>
-<!-- [Test Page]
-
-<%@ taglib uri="/bbNG" prefix="bbNG"%>
-<bbNG:modulePage type="personalize" ctxId="ctx">
-<bbNG:pageHeader>
-<bbNG:pageTitleBar title="Leaderboard Configuration"></bbNG:pageTitleBar>
-</bbNG:pageHeader>
-<bbNG:receipt type="SUCCESS" iconUrl="../images/B2-32.jpg" title="Information Saved" recallUrl="javascript:history.go(-2)">
-
-</bbNG:receipt>
-</bbNG:modulePage>
-
-//-->
