@@ -43,7 +43,7 @@
 		<!-- Color Picker -->
 		<bbNG:step title="Plotbands Color">
 			<bbNG:dataElement>
-				<bbNG:elementInstructions text="Color Picker instructions here" />
+				<bbNG:elementInstructions text="Choose a plotband color." />
 				<bbNG:colorPicker name="color" initialColor="<%= color_value %>"/>
 			</bbNG:dataElement>
 		</bbNG:step>
@@ -61,7 +61,7 @@
 			<% if (isUserAnInstructor) { %>
 				<bbNG:step title="Plotbands Points">
 					<bbNG:dataElement>
-						<bbNG:elementInstructions text="Plotbands instructions here" />
+						<bbNG:elementInstructions text="Set point requirements for each level. The points are cumulative. If Level 1 is set for 100 points and Level 2 is set for 50 points, then it takes 150 points to reach Level 2." />
 						<table>
 							<!-- Fill up table with 10 levels.  Includes label & input field -->
 							<% for(int i = 1; i <= 10; i++) { %>
