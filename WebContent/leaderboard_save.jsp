@@ -14,20 +14,29 @@
 <%
 if (request.getMethod().equalsIgnoreCase("POST")) {
 	
-	// Create a new persistence object.  Don't save empty fields.
-	B2Context b2Context = new B2Context(request);
-	b2Context.setSaveEmptyValues(false);
-	
-	// Get level values from user-submitted data and add it to the persistence object.
-	for(int i = 0; i < 10; i++) {
-		b2Context.setSetting(false, true, "Level_" + (i+1) + "_Points", request.getParameter("Level_" + (i+1) + "_Points"));
+	if(request.getParameter("instructor") == "true") {
+		// Create a new persistence object for course settings.  Don't save empty fields.
+		B2Context b2Context_c = new B2Context(request);
+		b2Context_c.setSaveEmptyValues(false);
+		
+		// Get level values from user-submitted data and add it to the persistence object.
+		for(int i = 0; i < 10; i++) {
+			b2Context_c.setSetting(false, true, "Level_" + (i+1) + "_Points", request.getParameter("Level_" + (i+1) + "_Points"));
+		}
+		
+		// Save course settings
+		b2Context_c.persistSettings(false, true);
 	}
 	
-	// Get color value from user-submitted data and add it to the persistence object.
-	b2Context.setSetting(false, true, "color", request.getParameter("color"));
+	// New persistence object for user-specific settings
+	B2Context b2Context_u = new B2Context(request);
 	
-	// Save the settings (COURSE-WIDE)
-	b2Context.persistSettings(false, true);
+	// Get color value from user-submitted data and add it to the persistence object.
+	b2Context_u.setSetting(true, false, "color", request.getParameter("color"));
+	b2Context_u.setSetting(true, false, "user_color", request.getParameter("user_color"));
+	
+	// Save the settings (USER-SPECIFIC)
+	b2Context_u.persistSettings(true, false);
 }
 
 // May need error checking logic here (gaps in level fields, overlapping values, etc.)

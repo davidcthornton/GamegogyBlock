@@ -14,6 +14,7 @@
 
 <%
 	String color_value = "";
+	String user_color_value = "";
 	String [] level_values = new String[10];
 	String jsConfigFormPath = PlugInUtil.getUri("dt", "leaderboardblock11", "js/config_form.js");
 		
@@ -22,7 +23,8 @@
 	b2Context.setSaveEmptyValues(false);
 	
 	// Grab previously saved color value
-	color_value = b2Context.getSetting(false, true, "color");
+	color_value = b2Context.getSetting(true, false, "color");
+	user_color_value = b2Context.getSetting(true, false, "user_color");
 	
 	// Grab previously saved level values
 	for(int i = 0; i < 10; i++){
@@ -43,8 +45,7 @@
 		<!-- Color Picker -->
 		<bbNG:step title="Plotbands Color">
 			<bbNG:dataElement>
-				<bbNG:elementInstructions text="Choose a plotband color." />
-				<bbNG:colorPicker name="color" initialColor="<%= color_value %>"/>
+				<bbNG:colorPicker name="color" initialColor="<%= color_value %>" helpText="Choose a plotband color."/>
 			</bbNG:dataElement>
 		</bbNG:step>
 		
@@ -56,6 +57,9 @@
 					isUserAnInstructor = true;
 				}	
 			%>
+			
+			<!-- Instructor flag submitted to save page - MAY BE UNSAFE -->
+			<input type="hidden" name="instructor" value="<%= isUserAnInstructor %>" />
 			
 			<!-- Plotbands Configuration Form -->
 			<% if (isUserAnInstructor) { %>
@@ -78,6 +82,13 @@
 						
 						<!-- Javascript Form Logic //-->
 						<script type="text/javascript" src="<%= jsConfigFormPath %>"></script>
+					</bbNG:dataElement>
+				</bbNG:step>
+			<% } else { %>
+				<!-- Color Picker -->
+				<bbNG:step title="Highlight Color">
+					<bbNG:dataElement>
+						<bbNG:colorPicker name="user_color" initialColor="<%= user_color_value %>" helpText="Choose a color for your own bar."/>
 					</bbNG:dataElement>
 				</bbNG:step>
 			<% } %>
