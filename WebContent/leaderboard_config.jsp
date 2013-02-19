@@ -30,7 +30,6 @@
 	for(int i = 0; i < 10; i++){
 		level_values[i] = b2Context.getSetting(false, true, "Level_" + (i+1) + "_Points");
 	}
-	
 %>
 
 <bbNG:modulePage type="personalize" ctxId="ctx">
