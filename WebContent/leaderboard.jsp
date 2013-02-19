@@ -130,8 +130,10 @@
 	   				<%	
 	   					// Load saved color settings
 	   					B2Context b2Context = new B2Context(request);
-	   					String user_color = b2Context.getSetting(true, false, "user_color");
+	   					String user_color = b2Context.getSetting(true, false, "user_color");	// Highlight color
+	   					String color = b2Context.getSetting(true, false, "color");				// General color
 	   					if(user_color == "") user_color = "#44aa22";
+	   					if(color == "") color = "#4572A7";
 	   				
 	   					boolean alreadyHighlighted = false;
 	   					for (int x = 0; x < students.size(); x++){
@@ -141,7 +143,7 @@
 	   							out.print("{dataLabels: { enabled: true, style: {fontWeight: 'bold'} }, y:  " + score.toString() + ", color: '"+ user_color + "'}");
 	   						}
 	   						else {
-	   							out.print(score.toString());
+	   							out.print("{y: " + score.toString() + ", color: '" + color + "'}");
 	   						}
 	   						if (x < students.size() -1) { out.print(","); }
 	   						else { out.print("];"); }
