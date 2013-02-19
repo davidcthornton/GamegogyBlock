@@ -28,6 +28,7 @@
 <%@page import="blackboard.platform.plugin.PlugInUtil"%>	<!-- for utilities -->
 <%@ taglib uri="/bbData" prefix="bbData"%> 					<!-- for tags -->
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
+<%@page import="com.spvsoftwareproducts.blackboard.utils.B2Context"%>
 <bbNG:includedPage ctxId="ctx">
 
 	<%
@@ -58,7 +59,7 @@
 		User sessionUser = ctx.getUser();
 		Id courseID = ctx.getCourseId();		
 		String sessionUserRole = ctx.getCourseMembership().getRoleAsString();	
-		String sessionUserID = sessionUser.getId().toString();	
+		String sessionUserID = sessionUser.getId().toString();
 		
 		// use the GradebookManager to get the gradebook data
 		GradebookManager gm = GradebookManagerFactory.getInstanceWithoutSecurityCheck();
@@ -127,12 +128,17 @@
 					
 					var seriesValues = [
 	   				<%	
+	   					// Load saved color settings
+	   					B2Context b2Context = new B2Context(request);
+	   					String user_color = b2Context.getSetting(true, false, "user_color");
+	   					if(user_color == "") user_color = "#44aa22";
+	   				
 	   					boolean alreadyHighlighted = false;
 	   					for (int x = 0; x < students.size(); x++){
 	   						Double score = (Double) students.get(x).score;
 	   						if (score == scoreToHighlight && !alreadyHighlighted) {
 	   							alreadyHighlighted = true;
-	   							out.print("{dataLabels: { enabled: true, style: {fontWeight: 'bold'} }, y:  " + score.toString() + ", color: '#44aa22'}");
+	   							out.print("{dataLabels: { enabled: true, style: {fontWeight: 'bold'} }, y:  " + score.toString() + ", color: '"+ user_color + "'}");
 	   						}
 	   						else {
 	   							out.print(score.toString());
