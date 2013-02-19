@@ -44,7 +44,7 @@
 		<!-- Color Picker -->
 		<bbNG:step title="Plotbands Color">
 			<bbNG:dataElement>
-				<bbNG:colorPicker name="color" initialColor="<%= color_value %>" helpText="Choose a plotband color."/>
+				<bbNG:colorPicker name="color" initialColor="<%= color_value %>" helpText="OOOHHH NOOOOOUUUUUUU."/>
 			</bbNG:dataElement>
 		</bbNG:step>
 		
