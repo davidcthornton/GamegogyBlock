@@ -32,6 +32,7 @@
 <bbNG:includedPage ctxId="ctx">
 
 	<%
+		String error_message = "No errors.";
 		//create a student class to hold their grades and other information
 		final class Student implements Comparable<Student> {
 		    public Double score;
@@ -202,70 +203,45 @@
 							},
 							offset: 20,
 							plotBands: [
-								{ 
-									color: '#ffffff',
-									from: 0,
-									to: 100,
-									label: {
-										text: '',
-										verticalAlign: "bottom",
-										style: {
-											color: '#666666'										
-										}
+								<%
+								int filledLevels;
+								//Capture the number of levels as it was saved in the persistence object by leaderboard_save.jsp.
+								try{filledLevels = Integer.parseInt(b2Context.getSetting(false,true,"num_filled_levels"));}
+								catch(Exception e){
+									error_message = "filledLevels could not be set: " + e.toString();
+									filledLevels = 0;
+								}
+								//Initialize the first 'from' value to the default '0'.
+								int levelFrom = 0;
+								int levelTo = 0;
+								
+								//For each level where a custom value was provided...
+								for(int j = 1; j<=filledLevels; j++){
+									//Gather the target value to achieve the current level from the persistence object.
+									try{levelTo = Integer.parseInt(b2Context.getSetting(false,true,"Level_"+j+"_Points"));}
+									catch(Exception e){
+										error_message += "levelTo could not be set, empty string: " + e.toString();
+										break;
 									}
-								},
-								{ 
-									color: '#eeeeee',
-									from: 100,
-									to: 300,
-									label: {
-										text: 'Level 2',
-										verticalAlign: "bottom",
-										style: {
-											color: '#666666'										
-										}									
-									}
-								},
-								{ 
-									color: '#dddddd',
-									from: 300,
-									to: 600,
-									label: {
-										text: 'Level 3',               
-										verticalAlign: "bottom",
-										style: {
-											color: '#666666'										
-										}									
-									}
-								},
-								{ 
-									color: '#cccccc',
-									from: 600,
-									to: 1000,
-									label: {
-										text: 'Level 4',               
-										verticalAlign: "bottom",
-										style: {
-											color: '#666666'										
-										}									
-									}
-								},
-								{ 
-									color: '#bbbbbb',
-									from: 1000,
-									to: 1500,
-									label: {
-										text: 'Level 5',               
-										verticalAlign: "bottom",
-										style: {
-											color: '#666666'										
-										}									
-									}
-								}							
+									//Calculate the correct gradient color using RGB and dividing with respect to filledLevels.
+									int gradient = (255/filledLevels)*j;
+									
+									//Output javascript for each highchart plotband.
+									out.print("{ color: 'rgb("+gradient+", "+gradient+", "+gradient+")', ");
+									out.print("from: "+levelFrom+", ");
+									out.print("to: "+levelTo+", ");
+									out.print("label: { text: 'LvL "+j+"', verticalAlign: 'bottom', style: { color: '#666666'}}}");
+									//Add commas after plotband elements until the last element which does not need one.
+									if(j<filledLevels-1){out.print(",");}
+									
+									//Update levelFrom for the next level by setting it to the current levelTo.
+									levelFrom = levelTo;
+								}
+								%>
 							]
 						
 						},
-						tooltip: {
+						/*tooltip: {
 							formatter: function() {
 								var level = 1;
 								// literals here!
@@ -276,7 +252,7 @@
 								else { level = 5; }
 								return this.y;
 							}
-						},
+						},*/
 						
 						credits: {
 							enabled: false
@@ -293,5 +269,5 @@
 									  		
 		</script>	
 	<div id="leaderboardBlockChartContainer"></div>	
-	
+	<%= error_message %>
 </bbNG:includedPage>

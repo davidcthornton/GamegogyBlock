@@ -12,17 +12,27 @@
 <%@page import="com.spvsoftwareproducts.blackboard.utils.B2Context"%>
 
 <%
+String s = "<script>history.go(-2);</script>";
+
 if (request.getMethod().equalsIgnoreCase("POST")) {
 	
-	if(request.getParameter("instructor") == "true") {
+	if(request.getParameter("instructor").equals("true")) {
 		// Create a new persistence object for course settings.  Don't save empty fields.
 		B2Context b2Context_c = new B2Context(request);
 		b2Context_c.setSaveEmptyValues(false);
 		
+		int numFilledLevels = 10;
+		String setting = "";
 		// Get level values from user-submitted data and add it to the persistence object.
-		for(int i = 0; i < 10; i++) {
-			b2Context_c.setSetting(false, true, "Level_" + (i+1) + "_Points", request.getParameter("Level_" + (i+1) + "_Points"));
+		for(int i = 1; i <= 10; i++) {
+			setting = request.getParameter("Level_" + i + "_Points");
+			b2Context_c.setSetting(false, true, "Level_" + i + "_Points", setting);
+			//Count the number of levels by subtracting empty strings from total available levels.
+			if(setting == ""){numFilledLevels--;}
 		}
+		
+		//Add number of levels key-pair to the persistence object.
+		b2Context_c.setSetting(false,true,"num_filled_levels",Integer.toString(numFilledLevels));
 		
 		// Save course settings
 		b2Context_c.persistSettings(false, true);
@@ -41,8 +51,6 @@ if (request.getMethod().equalsIgnoreCase("POST")) {
 
 // May need error checking logic here (gaps in level fields, overlapping values, etc.)
 
-// Send user back to course home page
-String s = "<script>history.go(-2);</script>";
 
 %>
 

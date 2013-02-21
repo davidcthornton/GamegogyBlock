@@ -64,7 +64,7 @@
 			<% if (isUserAnInstructor) { %>
 				<bbNG:step title="Plotbands Points">
 					<bbNG:dataElement>
-						<bbNG:elementInstructions text="Set point requirements for each level. The points are cumulative. If Level 1 is set for 100 points and Level 2 is set for 50 points, then it takes 150 points to reach Level 2." />
+						<bbNG:elementInstructions text="Set point requirements for each level. Note: Higher levels are not shown on the leaderboard until at least one student reaches that level." />
 						<table>
 							<!-- Fill up table with 10 levels.  Includes label & input field -->
 							<% for(int i = 1; i <= 10; i++) { %>
