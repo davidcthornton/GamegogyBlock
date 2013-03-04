@@ -241,18 +241,11 @@
 							]
 						
 						},
-						/*tooltip: {
+						tooltip: {
 							formatter: function() {
-								var level = 1;
-								// literals here!
-								if (this.y < 100) { level = 1; }
-								else if (this.y < 300) { level = 2; }
-								else if (this.y < 600) { level = 3; }
-								else if (this.y < 1000) { level = 4; }
-								else { level = 5; }
 								return this.y;
 							}
-						},*/
+						},
 						
 						credits: {
 							enabled: false
