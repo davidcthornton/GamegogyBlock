@@ -109,8 +109,10 @@
 		String jQueryPath = PlugInUtil.getUri("dt", "leaderboardblock11", "js/jqueryNoConflict.js");
 		String highChartsPath = PlugInUtil.getUri("dt", "leaderboardblock11", "js/highcharts.js");		
 	%>		
-	<script type="text/javascript" src="<%=jQueryPath%>"></script>
-	<script type="text/javascript" src="<%=highChartsPath%>"></script>
+	<script type="text/javascript">
+		<jsp:include page="js/jqueryNoConflict.js" />
+		<jsp:include page="js/highcharts.js" />
+	</script>
 	
 		<script type="text/javascript">		
 			// this is a rather kludgy fix for a bug introduced by Blackboard 9.1 SP 10.  It ensures that javascript files are loaded in the correct order, instead of haphazardly.
