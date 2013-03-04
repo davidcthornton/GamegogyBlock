@@ -40,13 +40,6 @@
 <!-- Body Content: Plotbands & Color Picker -->
 <bbNG:form action="leaderboard_save.jsp" method="post" name="plotband_config_form" id="plotband_config_form" onSubmit="return validateForm()">
 	<bbNG:dataCollection>
-	
-		<!-- Color Picker -->
-		<bbNG:step title="Plotbands Color">
-			<bbNG:dataElement>
-				<bbNG:colorPicker name="color" initialColor="<%= color_value %>" helpText="Select a general plotband color."/>
-			</bbNG:dataElement>
-		</bbNG:step>
 		
 			<%	
 				// get the current user's information
@@ -62,6 +55,13 @@
 			
 			<!-- Plotbands Configuration Form -->
 			<% if (isUserAnInstructor) { %>
+				<!-- Color Picker -->
+				<bbNG:step title="Primary Bar Color">
+					<bbNG:dataElement>
+						<bbNG:colorPicker name="color" initialColor="<%= color_value %>" helpText="Select a general plotband color."/>
+					</bbNG:dataElement>
+				</bbNG:step>
+			
 				<bbNG:step title="Plotbands Points">
 					<bbNG:dataElement>
 						<bbNG:elementInstructions text="Set point requirements for each level. Note: Higher levels are not shown on the leaderboard until at least one student reaches that level." />
@@ -85,7 +85,12 @@
 				</bbNG:step>
 			<% } else { %>
 				<!-- Color Picker -->
-				<bbNG:step title="Highlight Color">
+				<bbNG:step title="Everyone else's color">
+					<bbNG:dataElement>
+						<bbNG:colorPicker name="color" initialColor="<%= color_value %>" helpText="Select a general plotband color."/>
+					</bbNG:dataElement>
+				</bbNG:step>
+				<bbNG:step title="Your bar's color">
 					<bbNG:dataElement>
 						<bbNG:colorPicker name="user_color" initialColor="<%= user_color_value %>" helpText="Choose a color for your own bar."/>
 					</bbNG:dataElement>
