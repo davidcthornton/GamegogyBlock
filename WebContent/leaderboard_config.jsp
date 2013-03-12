@@ -64,10 +64,10 @@
 			
 				<bbNG:step title="Plotbands Points">
 					<bbNG:dataElement>
-						<bbNG:elementInstructions text="Set point requirements for each level. Note: Higher levels are not shown on the leaderboard until at least one student reaches that level." />
+						<bbNG:elementInstructions text="Set point requirements for each level. Everyone starts at Level 1. Note: Higher levels are not shown on the leaderboard until at least one student reaches that level." />
 						<table>
 							<!-- Fill up table with 10 levels.  Includes label & input field -->
-							<% for(int i = 1; i <= 10; i++) { %>
+							<% for(int i = 2; i <= 10; i++) { %>
 								<tr id="Level_<%= i %>">
 									<td>Level <%= i %> -</td>
 									<td><input type="text" name="Level_<%= i %>_Points" size="3" value="<%=level_values[i-1]%>" onkeyup="checkForm()"/></td>
@@ -78,7 +78,6 @@
 						<input id="pushLevel_button" type="button" value="+" onclick="addLevel()" />
 						<input type="button" value="Reset" onclick="resetForm()" />
 						<input type="button" value="Clear" onclick="clearForm()" />
-						
 						<!-- Javascript Form Logic //-->
 						<script type="text/javascript" src="<%= jsConfigFormPath %>"></script>
 					</bbNG:dataElement>

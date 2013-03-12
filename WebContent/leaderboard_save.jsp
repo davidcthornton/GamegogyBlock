@@ -25,7 +25,7 @@ if (request.getMethod().equalsIgnoreCase("POST")) {
 		String setting = "";
 		// Get level values from user-submitted data and add it to the persistence object.
 		for(int i = 1; i <= 10; i++) {
-			setting = request.getParameter("Level_" + i + "_Points");
+			setting = (i == 1)? "0":request.getParameter("Level_" + i + "_Points");
 			b2Context_c.setSetting(false, true, "Level_" + i + "_Points", setting);
 			//Count the number of levels by subtracting empty strings from total available levels.
 			if(setting == ""){numFilledLevels--;}

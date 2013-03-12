@@ -32,7 +32,6 @@
 <bbNG:includedPage ctxId="ctx">
 
 	<%
-		String error_message = "No errors.";
 		//create a student class to hold their grades and other information
 		final class Student implements Comparable<Student> {
 		    public Double score;
@@ -206,38 +205,33 @@
 							offset: 20,
 							plotBands: [
 								<%
-								int filledLevels;
 								//Capture the number of levels as it was saved in the persistence object by leaderboard_save.jsp.
-								try{filledLevels = Integer.parseInt(b2Context.getSetting(false,true,"num_filled_levels"));}
-								catch(Exception e){
-									error_message = "filledLevels could not be set: " + e.toString();
-									filledLevels = 0;
-								}
-								//Initialize the first 'from' value to the default '0'.
+								String s =  b2Context.getSetting(false,true,"num_filled_levels");
+								int filledLevels = (s == "")? 0: Integer.parseInt(s);
+								
 								int levelFrom = 0;
 								int levelTo = 0;
 								
 								//For each level where a custom value was provided...
 								for(int j = 1; j<=filledLevels; j++){
 									//Gather the target value to achieve the current level from the persistence object.
-									try{levelTo = Integer.parseInt(b2Context.getSetting(false,true,"Level_"+j+"_Points"));}
-									catch(Exception e){
-										error_message += "levelTo could not be set, empty string: " + e.toString();
-										break;
+									levelFrom = Integer.parseInt(b2Context.getSetting(false,true,"Level_" + (j) + "_Points"));
+									if(j == filledLevels) {
+										levelTo = levelFrom * 2;
+									} else {
+										levelTo = Integer.parseInt(b2Context.getSetting(false,true,"Level_" + (j+1) + "_Points"));
 									}
 									//Calculate the correct gradient color using RGB and dividing with respect to filledLevels.
-									int gradient = (255/filledLevels)*j;
+									int gradient = (255/(filledLevels+10))*((filledLevels+10)-j);
 									
 									//Output javascript for each highchart plotband.
 									out.print("{ color: 'rgb("+gradient+", "+gradient+", "+gradient+")', ");
 									out.print("from: "+levelFrom+", ");
 									out.print("to: "+levelTo+", ");
-									out.print("label: { text: 'LvL "+j+"', verticalAlign: 'bottom', style: { color: '#666666'}}}");
+									if (j == 1) out.print("label: { text: '', verticalAlign: 'bottom', style: { color: '#666666'}}}");
+									else out.print("label: { text: 'LvL "+j+"', verticalAlign: 'bottom', style: { color: '#666666'}}}");
 									//Add commas after plotband elements until the last element which does not need one.
-									if(j<filledLevels-1){out.print(",");}
-									
-									//Update levelFrom for the next level by setting it to the current levelTo.
-									levelFrom = levelTo;
+									if(j<filledLevels){out.print(",");}
 								}
 								%>
 							]
@@ -263,6 +257,5 @@
 			waitForDependencies();  // end of rather kludgy blocking solution
 									  		
 		</script>	
-	<div id="leaderboardBlockChartContainer"></div>	
-	<%= error_message %>
+	<div id="leaderboardBlockChartContainer"></div>
 </bbNG:includedPage>
