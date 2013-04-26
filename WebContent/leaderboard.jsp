@@ -108,154 +108,140 @@
 		String jQueryPath = PlugInUtil.getUri("dt", "leaderboardblock11", "js/jqueryNoConflict.js");
 		String highChartsPath = PlugInUtil.getUri("dt", "leaderboardblock11", "js/highcharts.js");		
 	%>		
-	<script type="text/javascript">
-		<jsp:include page="js/jqueryNoConflict.js" />
-		<jsp:include page="js/highcharts.js" />
-	</script>
 	
 		<script type="text/javascript">		
 			// this is a rather kludgy fix for a bug introduced by Blackboard 9.1 SP 10.  It ensures that javascript files are loaded in the correct order, instead of haphazardly.
-			function waitForDependencies() {
-			    //console.log("main page: checking for dependencies");			    
-			    if (typeof jQueryDefined === 'undefined' || typeof highChartsDefined === 'undefined') {
-			        //console.log("main page: dependencies not loaded yet, waiting");			        
-			        setTimeout(waitForDependencies, 1);
-			    }
-			    else {
-			        //console.log("dependencies loaded, continuing merrily");			        
-			        // insert main body of code here
-			        dave(document).ready(function() {
+			<jsp:include page="js/jqueryNoConflict.js" />
+			<jsp:include page="js/highcharts.js" />
 			
-					var gamegogyLeaderboardChart;			
-					
-					var seriesValues = [
-	   				<%	
-	   					// Load saved color settings
-	   					B2Context b2Context = new B2Context(request);
-	   					String user_color = b2Context.getSetting(true, false, "user_color");	// Highlight color
-	   					String color = b2Context.getSetting(true, false, "color");				// General color
-	   					if(user_color == "") user_color = "#44aa22";
-	   					if(color == "") color = "#4572A7";
-	   				
-	   					boolean alreadyHighlighted = false;
-	   					for (int x = 0; x < students.size(); x++){
-	   						Double score = (Double) students.get(x).score;
-	   						if (score == scoreToHighlight && !alreadyHighlighted) {
-	   							alreadyHighlighted = true;
-	   							out.print("{dataLabels: { enabled: true, style: {fontWeight: 'bold'} }, y:  " + score.toString() + ", color: '"+ user_color + "'}");
-	   						}
-	   						else {
-	   							out.print("{y: " + score.toString() + ", color: '" + color + "'}");
-	   						}
-	   						if (x < students.size() -1) { out.print(","); }
-	   						else { out.print("];"); }
-	   					}
-	   				%>
-	   				
-	   				var studentNames = [
+	        dave(document).ready(function() {
+	
+				var gamegogyLeaderboardChart;			
+				
+				var seriesValues = [
 	  				<%	
-	  					if (isUserAnInstructor) {
-	  						for (int x = 0; x < students.size(); x++){
-		  						String firstName = (String) students.get(x).firstName;
-		  						String lastName = (String) students.get(x).lastName;
-		  						out.print('"' + firstName.substring(0, 1) + ' ' + lastName + '"');   						
-		  						if (x < students.size() -1) { out.print(","); }
-		  						else { out.print("];"); }
-		  					}
-	  					}	  				
-	  					else {
-	  						// this is a remote kludge
-	  						out.print("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50];");
+	  					// Load saved color settings
+	  					B2Context b2Context = new B2Context(request);
+	  					String user_color = b2Context.getSetting(true, false, "user_color");	// Highlight color
+	  					String color = b2Context.getSetting(true, false, "color");				// General color
+	  					if(user_color == "") user_color = "#44aa22";
+	  					if(color == "") color = "#4572A7";
+	  				
+	  					boolean alreadyHighlighted = false;
+	  					for (int x = 0; x < students.size(); x++){
+	  						Double score = (Double) students.get(x).score;
+	  						if (score == scoreToHighlight && !alreadyHighlighted) {
+	  							alreadyHighlighted = true;
+	  							out.print("{dataLabels: { enabled: true, style: {fontWeight: 'bold'} }, y:  " + score.toString() + ", color: '"+ user_color + "'}");
+	  						}
+	  						else {
+	  							out.print("{y: " + score.toString() + ", color: '" + color + "'}");
+	  						}
+	  						if (x < students.size() -1) { out.print(","); }
+	  						else { out.print("];"); }
 	  					}
 	  				%>
-			
-					
-	  				gamegogyLeaderboardChart = new Highcharts.Chart({
-						chart: {
-							renderTo: 'leaderboardBlockChartContainer',
-							type: 'bar'
-						},
-	                    plotOptions: {
-	                        series: {
-								pointPadding: 0,
-								groupPadding: 0.1,
-	                            borderWidth: 0,
-	                            borderColor: 'gray',
-	                            shadow: false
-	                        }
-	                    },
-						legend: {  enabled: false  },  
+	  				
+	  				var studentNames = [
+	 				<%	
+	 					if (isUserAnInstructor) {
+	 						for (int x = 0; x < students.size(); x++){
+	  						String firstName = (String) students.get(x).firstName;
+	  						String lastName = (String) students.get(x).lastName;
+	  						out.print('"' + firstName.substring(0, 1) + ' ' + lastName + '"');   						
+	  						if (x < students.size() -1) { out.print(","); }
+	  						else { out.print("];"); }
+	  					}
+	 					}	  				
+	 					else {
+	 						// this is a remote kludge
+	 						out.print("1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50];");
+	 					}
+	 				%>
+		
+				
+	 				gamegogyLeaderboardChart = new Highcharts.Chart({
+					chart: {
+						renderTo: 'leaderboardBlockChartContainer',
+						type: 'bar'
+					},
+	                   plotOptions: {
+	                       series: {
+							pointPadding: 0,
+							groupPadding: 0.1,
+	                           borderWidth: 0,
+	                           borderColor: 'gray',
+	                           shadow: false
+	                       }
+	                   },
+					legend: {  enabled: false  },  
+					title: {
+						text: null
+					},						
+					xAxis: {						
+						categories: studentNames,
 						title: {
 							text: null
-						},						
-						xAxis: {						
-							categories: studentNames,
-							title: {
-								text: null
-							}
+						}
+					},
+					yAxis: {
+						title: {
+							text: null
 						},
-						yAxis: {
-							title: {
-								text: null
-							},
-							gridLineWidth: 0,
-							labels: {
-								enabled: false
-							},
-							offset: 20,
-							plotBands: [
-								<%
-								//Capture the number of levels as it was saved in the persistence object by leaderboard_save.jsp.
-								String s =  b2Context.getSetting(false,true,"num_filled_levels");
-								int filledLevels = (s == "")? 0: Integer.parseInt(s);
-								
-								int levelFrom = 0;
-								int levelTo = 0;
-								
-								//For each level where a custom value was provided...
-								for(int j = 1; j<=filledLevels; j++){
-									//Gather the target value to achieve the current level from the persistence object.
-									levelFrom = Integer.parseInt(b2Context.getSetting(false,true,"Level_" + (j) + "_Points"));
-									if(j == filledLevels) {
-										levelTo = levelFrom * 2;
-									} else {
-										levelTo = Integer.parseInt(b2Context.getSetting(false,true,"Level_" + (j+1) + "_Points"));
-									}
-									//Calculate the correct gradient color using RGB and dividing with respect to filledLevels.
-									int gradient = (255/(filledLevels+10))*((filledLevels+10)-j);
-									
-									//Output javascript for each highchart plotband.
-									out.print("{ color: 'rgb("+gradient+", "+gradient+", "+gradient+")', ");
-									out.print("from: "+levelFrom+", ");
-									out.print("to: "+levelTo+", ");
-									if (j == 1) out.print("label: { text: '', verticalAlign: 'bottom', style: { color: '#666666'}}}");
-									else out.print("label: { text: 'LvL "+j+"', verticalAlign: 'bottom', style: { color: '#666666'}}}");
-									//Add commas after plotband elements until the last element which does not need one.
-									if(j<filledLevels){out.print(",");}
-								}
-								%>
-							]
-						
-						},
-						tooltip: {
-							formatter: function() {
-								return this.y;
-							}
-						},
-						
-						credits: {
+						gridLineWidth: 0,
+						labels: {
 							enabled: false
 						},
-						series: [{
-							name: 'XP',
-							data: seriesValues
-						}]
-					}); //end of chart
-				}); // end of ready function
-			    }  //end of else (main body)
-			}
-			waitForDependencies();  // end of rather kludgy blocking solution
-									  		
+						offset: 20,
+						plotBands: [
+							<%
+							//Capture the number of levels as it was saved in the persistence object by leaderboard_save.jsp.
+							String s =  b2Context.getSetting(false,true,"num_filled_levels");
+							int filledLevels = (s == "")? 0: Integer.parseInt(s);
+							
+							int levelFrom = 0;
+							int levelTo = 0;
+							
+							//For each level where a custom value was provided...
+							for(int j = 1; j<=filledLevels; j++){
+								//Gather the target value to achieve the current level from the persistence object.
+								levelFrom = Integer.parseInt(b2Context.getSetting(false,true,"Level_" + (j) + "_Points"));
+								if(j == filledLevels) {
+									levelTo = levelFrom * 2;
+								} else {
+									levelTo = Integer.parseInt(b2Context.getSetting(false,true,"Level_" + (j+1) + "_Points"));
+								}
+								//Calculate the correct gradient color using RGB and dividing with respect to filledLevels.
+								int gradient = (255/(filledLevels+10))*((filledLevels+10)-j);
+								
+								//Output javascript for each highchart plotband.
+								out.print("{ color: 'rgb("+gradient+", "+gradient+", "+gradient+")', ");
+								out.print("from: "+levelFrom+", ");
+								out.print("to: "+levelTo+", ");
+								if (j == 1) out.print("label: { text: '', verticalAlign: 'bottom', style: { color: '#666666'}}}");
+								else out.print("label: { text: 'LvL "+j+"', verticalAlign: 'bottom', style: { color: '#666666'}}}");
+								//Add commas after plotband elements until the last element which does not need one.
+								if(j<filledLevels){out.print(",");}
+							}
+							%>
+						]
+					
+					},
+					tooltip: {
+						formatter: function() {
+							return this.y;
+						}
+					},
+					
+					credits: {
+						enabled: false
+					},
+					series: [{
+						name: 'XP',
+						data: seriesValues
+					}]
+				}); //end of chart
+			}); // end of ready function									  		
 		</script>	
 	<div id="leaderboardBlockChartContainer"></div>
 </bbNG:includedPage>
