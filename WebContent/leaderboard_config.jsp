@@ -74,10 +74,12 @@
 								</tr>
 							<% } %>
 						</table>
+						<!--
 						<input id="popLevel_button" type="button" value="-" onclick="subtractLevel()" />
 						<input id="pushLevel_button" type="button" value="+" onclick="addLevel()" />
 						<input type="button" value="Reset" onclick="resetForm()" />
 						<input type="button" value="Clear" onclick="clearForm()" />
+						-->
 						<!-- Javascript Form Logic //-->
 						<script type="text/javascript" src="<%= jsConfigFormPath %>"></script>
 					</bbNG:dataElement>
