@@ -49,7 +49,6 @@
 					isUserAnInstructor = true;
 				}	
 			%>
-			
 			<!-- Instructor flag submitted to save page - MAY BE UNSAFE -->
 			<input type="hidden" name="instructor" value="<%= isUserAnInstructor %>" />
 			
@@ -78,6 +77,16 @@
 						<input id="pushLevel_button" type="button" value="+" onclick="addLevel()" />
 						<input type="button" value="Reset" onclick="resetForm()" />
 						<input type="button" value="Clear" onclick="clearForm()" />
+						<!-- Selector begins -->
+						<bbNG:step title="Pick an Order">
+						<!-- selector -->
+							<select name = "Assignment">
+								<option value="one">one</option>
+								<option value="two">two</option>
+								<option value="three">three</option>
+							</select>
+						</bbNG:step>
+						<!-- selector end -->
 						<!-- Javascript Form Logic //-->
 						<script type="text/javascript" src="<%= jsConfigFormPath %>"></script>
 					</bbNG:dataElement>
@@ -93,6 +102,14 @@
 					<bbNG:dataElement>
 						<bbNG:colorPicker name="user_color" initialColor="<%= user_color_value %>" helpText="Choose a color for your own bar."/>
 					</bbNG:dataElement>
+				</bbNG:step>
+				<bbNG:step title="Pick an Order">
+						<!-- selector -->
+					<select name = "Assignment">
+						<option value="one">one</option>
+						<option value="two">two</option>
+						<option value="three">three</option>
+					</select>
 				</bbNG:step>
 			<% } %>
 		<bbNG:stepSubmit />
