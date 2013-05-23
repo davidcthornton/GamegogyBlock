@@ -17,7 +17,9 @@
 	String user_color_value = "";
 	String [] level_values = new String[10];
 	String jsConfigFormPath = PlugInUtil.getUri("dt", "leaderboardblock11", "js/config_form.js");
-		
+	//Var of corse ID
+	String classid = "";
+	
 	// Create a new persistence object.  Don't save empty fields.
 	B2Context b2Context = new B2Context(request);
 	b2Context.setSaveEmptyValues(false);
@@ -78,15 +80,13 @@
 						<input type="button" value="Reset" onclick="resetForm()" />
 						<input type="button" value="Clear" onclick="clearForm()" />
 						<!-- Selector begins -->
+						<!--selector begins-->
 						<bbNG:step title="Pick an Order">
-						<!-- selector -->
-							<select name = "Assignment">
-								<option value="one">one</option>
-								<option value="two">two</option>
-								<option value="three">three</option>
-							</select>
-						</bbNG:step>
-						<!-- selector end -->
+							  <select name="select" style="width:130px"> 
+    						  <option value="0" selected>Select One</option>
+ 					  		  </select>
+ 					    </bbNG:step>>
+						<!-- selector end-->
 						<!-- Javascript Form Logic //-->
 						<script type="text/javascript" src="<%= jsConfigFormPath %>"></script>
 					</bbNG:dataElement>
@@ -103,13 +103,13 @@
 						<bbNG:colorPicker name="user_color" initialColor="<%= user_color_value %>" helpText="Choose a color for your own bar."/>
 					</bbNG:dataElement>
 				</bbNG:step>
+				<!--selector begins-->
 				<bbNG:step title="Pick an Order">
-						<!-- selector -->
-					<select name = "Assignment">
-						<option value="one">one</option>
-						<option value="two">two</option>
-						<option value="three">three</option>
-					</select>
+					<select name="select"> 
+    					  <option value="0" selected>Select One</option>
+ 					</select>
+						<!-- selector end-->
+					
 				</bbNG:step>
 			<% } %>
 		<bbNG:stepSubmit />
