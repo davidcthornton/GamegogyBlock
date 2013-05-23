@@ -79,11 +79,23 @@
 						<input type="button" value="Clear" onclick="clearForm()" />
 						<!-- Selector begins -->
 						<bbNG:step title="Pick an Order">
-						<!-- selector -->
 							<select name = "Assignment">
-								<option value="one">one</option>
-								<option value="two">two</option>
-								<option value="three">three</option>
+							<%
+							//use gradebookManager to get course information
+							GradebookManager gm = GradebookManagerFactory.getInstanceWithoutSecurityCheck();
+							BookData bookData = gm.getBookData(new BookDataRequest(courseID));
+							List<GradableItem> lgm = gm.getGradebookItems(courseID);
+							
+							bookData.addParentReferences();
+							bookData.runCumulativeGrading();
+							
+							for (int x = 0; x < lgm.size(); x++){	
+								//get each item in list lgm, canvert into string type
+								String classname = lgm.get(x).toString();		
+							%>
+								<!-- Add Options into selector-->
+								<option value="<%=x%>"><%=classname %></option>
+							<%} %>
 							</select>
 						</bbNG:step>
 						<!-- selector end -->

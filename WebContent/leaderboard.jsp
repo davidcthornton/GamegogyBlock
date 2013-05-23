@@ -65,9 +65,11 @@
 		GradebookManager gm = GradebookManagerFactory.getInstanceWithoutSecurityCheck();
 		BookData bookData = gm.getBookData(new BookDataRequest(courseID));
 		List<GradableItem> lgm = gm.getGradebookItems(courseID);
+		
 		// it is necessary to execute these two methods to obtain calculated students and extended grade data
 		bookData.addParentReferences();
 		bookData.runCumulativeGrading();
+		
 		// get a list of all the students in the class
 		List <CourseMembership> cmlist = CourseMembershipDbLoader.Default.getInstance().loadByCourseIdAndRole(courseID, CourseMembership.Role.STUDENT, null, true);
 		Iterator<CourseMembership> i = cmlist.iterator();
