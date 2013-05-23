@@ -80,6 +80,13 @@
 		if (sessionUserRole.trim().toLowerCase().equals("instructor")) {
 			isUserAnInstructor = true;
 		}	
+		
+		//read saved subject 
+		B2Context b2Context = new B2Context(request);
+		String subject = b2Context.getSetting(true,false,"subject");
+		if(subject == "")subject = "total";
+		
+		
 		Double scoreToHighlight = -1.0;
 		int index = 0;
 		
@@ -95,7 +102,7 @@
 				if(gwas2 != null && !gwas2.isNullGrade()) {
 					currScore = gwas2.getScoreValue();	 
 				}						
-				if (gi.getTitle().trim().toLowerCase().equalsIgnoreCase("total")) {
+				if (gi.getTitle().trim().toLowerCase().equalsIgnoreCase(subject)) {
 					if (sessionUserID.equals(currentUserID)) {
 						scoreToHighlight = currScore;
 					}
@@ -123,12 +130,12 @@
 				var seriesValues = [
 	  				<%	
 	  					// Load saved color settings
-	  					B2Context b2Context = new B2Context(request);
+	  					
 	  					String user_color = b2Context.getSetting(true, false, "user_color");	// Highlight color
 	  					String color = b2Context.getSetting(true, false, "color");				// General color
 	  					if(user_color == "") user_color = "#44aa22";
-	  					if(color == "") color = "#4572A7";
-	  				
+	  					if(color == "") color = "#4572A7";	
+	  					
 	  					boolean alreadyHighlighted = false;
 	  					for (int x = 0; x < students.size(); x++){
 	  						Double score = (Double) students.get(x).score;
