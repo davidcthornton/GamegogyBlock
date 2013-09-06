@@ -5,13 +5,12 @@
  * Includes adding/removing visible levels, disabling restricted fields, etc.
  */
 
-//formInit();
+formInit();
 
 function formInit() {
 	/* Initial form check.
 	 * Hide all fields with no data entered, except the field immediately after current data entered.
 	 */
-	/*
 	for(var i = 4; i <= 10; i++) {
 		if (document.getElementsByName("Level_" + (i-1) + "_Points")[0].value == ""
 		&&  document.getElementsByName("Level_" + (i) + "_Points")[0].value == "") {
@@ -21,7 +20,6 @@ function formInit() {
 		}
 	}
 	checkForm();
-	*/
 }
 
 function addLevel() {
