@@ -1,7 +1,7 @@
 <!--
 
 	Gamegogy Leaderboard 1.1
-    Copyright (C) 2013  Adam Evans
+    Copyright (C) 2013  David Thornton
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -65,11 +65,9 @@
 		GradebookManager gm = GradebookManagerFactory.getInstanceWithoutSecurityCheck();
 		BookData bookData = gm.getBookData(new BookDataRequest(courseID));
 		List<GradableItem> lgm = gm.getGradebookItems(courseID);
-		
 		// it is necessary to execute these two methods to obtain calculated students and extended grade data
 		bookData.addParentReferences();
 		bookData.runCumulativeGrading();
-		
 		// get a list of all the students in the class
 		List <CourseMembership> cmlist = CourseMembershipDbLoader.Default.getInstance().loadByCourseIdAndRole(courseID, CourseMembership.Role.STUDENT, null, true);
 		Iterator<CourseMembership> i = cmlist.iterator();
@@ -80,13 +78,6 @@
 		if (sessionUserRole.trim().toLowerCase().equals("instructor")) {
 			isUserAnInstructor = true;
 		}	
-		
-		//read saved subject 
-		B2Context b2Context = new B2Context(request);
-		String subject = b2Context.getSetting(true,false,"subject");
-		if(subject == "")subject = "total";
-		
-		
 		Double scoreToHighlight = -1.0;
 		int index = 0;
 		
@@ -102,7 +93,7 @@
 				if(gwas2 != null && !gwas2.isNullGrade()) {
 					currScore = gwas2.getScoreValue();	 
 				}						
-				if (gi.getTitle().trim().toLowerCase().equalsIgnoreCase(subject)) {
+				if (gi.getTitle().trim().toLowerCase().equalsIgnoreCase("total")) {
 					if (sessionUserID.equals(currentUserID)) {
 						scoreToHighlight = currScore;
 					}
@@ -130,12 +121,12 @@
 				var seriesValues = [
 	  				<%	
 	  					// Load saved color settings
-	  					
+	  					B2Context b2Context = new B2Context(request);
 	  					String user_color = b2Context.getSetting(true, false, "user_color");	// Highlight color
 	  					String color = b2Context.getSetting(true, false, "color");				// General color
 	  					if(user_color == "") user_color = "#44aa22";
-	  					if(color == "") color = "#4572A7";	
-	  					
+	  					if(color == "") color = "#4572A7";
+	  				
 	  					boolean alreadyHighlighted = false;
 	  					for (int x = 0; x < students.size(); x++){
 	  						Double score = (Double) students.get(x).score;

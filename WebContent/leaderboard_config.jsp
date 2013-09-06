@@ -17,7 +17,7 @@
 	String user_color_value = "";
 	String [] level_values = new String[10];
 	String jsConfigFormPath = PlugInUtil.getUri("dt", "leaderboardblock11", "js/config_form.js");
-	String subject = "";
+		
 	// Create a new persistence object.  Don't save empty fields.
 	B2Context b2Context = new B2Context(request);
 	b2Context.setSaveEmptyValues(false);
@@ -26,25 +26,12 @@
 	color_value = b2Context.getSetting(true, false, "color");
 	user_color_value = b2Context.getSetting(true, false, "user_color");
 	
-	//grab previously saved subject
-	subject = b2Context.getSetting(true,false,"subject");
-	
 	// Grab previously saved level values
 	for(int i = 0; i < 10; i++){
 		level_values[i] = b2Context.getSetting(false, true, "Level_" + (i+1) + "_Points");
 	}
 %>
 
-<%
-//get selected item function
-function getSelectedText(name)
-{
-	var obj=document.getElementById(name);
-	for(i=0;i<obj.length;i++){
-	if(obj[i].selected==true){
-	return obj[i].innerText;
-}
-%>
 <bbNG:modulePage type="personalize" ctxId="ctx">
 <bbNG:pageHeader>
 	<bbNG:pageTitleBar title="Leaderboard Configuration"></bbNG:pageTitleBar>
@@ -62,6 +49,7 @@ function getSelectedText(name)
 					isUserAnInstructor = true;
 				}	
 			%>
+			
 			<!-- Instructor flag submitted to save page - MAY BE UNSAFE -->
 			<input type="hidden" name="instructor" value="<%= isUserAnInstructor %>" />
 			
@@ -86,39 +74,12 @@ function getSelectedText(name)
 								</tr>
 							<% } %>
 						</table>
+						<!--
 						<input id="popLevel_button" type="button" value="-" onclick="subtractLevel()" />
 						<input id="pushLevel_button" type="button" value="+" onclick="addLevel()" />
 						<input type="button" value="Reset" onclick="resetForm()" />
 						<input type="button" value="Clear" onclick="clearForm()" />
-						
-						
-						
-						<!-- Selector begins -->
-						<bbNG:step title="Pick an Order">
-							<select name = "Assignment" >
-							<%
-							//use gradebookManager to get course information
-							GradebookManager gm = GradebookManagerFactory.getInstanceWithoutSecurityCheck();
-							BookData bookData = gm.getBookData(new BookDataRequest(courseID));
-							List<GradableItem> lgm = gm.getGradebookItems(courseID);
-							
-							bookData.addParentReferences();
-							bookData.runCumulativeGrading();
-							
-							for (int x = 0; x < lgm.size(); x++){	
-								//get each item in list lgm, canvert into string type
-								String classname = lgm.get(x).toString();		
-							%>
-								<!-- Add Options into selector-->
-								<option value="<%=x%>"><%=classname %></option>
-							<%} %>
-							</select>
-						</bbNG:step>
-						<!-- selector end -->
-						
-						<!-- select subject -->
-						subject = getSelectedText(Assignment);
-						
+						-->
 						<!-- Javascript Form Logic //-->
 						<script type="text/javascript" src="<%= jsConfigFormPath %>"></script>
 					</bbNG:dataElement>
@@ -134,14 +95,6 @@ function getSelectedText(name)
 					<bbNG:dataElement>
 						<bbNG:colorPicker name="user_color" initialColor="<%= user_color_value %>" helpText="Choose a color for your own bar."/>
 					</bbNG:dataElement>
-				</bbNG:step>
-				<bbNG:step title="Pick an Order">
-						<!-- selector -->
-					<select name = "Assignment">
-						<option value="one">one</option>
-						<option value="two">two</option>
-						<option value="three">three</option>
-					</select>
 				</bbNG:step>
 			<% } %>
 		<bbNG:stepSubmit />

@@ -47,22 +47,6 @@ if (request.getMethod().equalsIgnoreCase("POST")) {
 	
 	// Save the settings (USER-SPECIFIC)
 	b2Context_u.persistSettings(true, false);
-	
-	
-	
-	
-	
-	
-	
-	
-	// New persistence object for user-specific settings
-		B2Context b2Context_s = new B2Context(request);
-		
-	// Get selected value from user-submitted data and add it to the persistence object.
-	 	b2Context_s.setSetting(true, false, "subject", request.getParameter("subject"));
-		
-	// Save the settings (USER-SPECIFIC)
-		b2Context_s.persistSettings(true, false);
 }
 
 // May need error checking logic here (gaps in level fields, overlapping values, etc.)
